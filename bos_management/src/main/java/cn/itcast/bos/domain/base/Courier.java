@@ -3,14 +3,7 @@ package cn.itcast.bos.domain.base;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @description:快递员
@@ -44,7 +37,7 @@ public class Courier {
 	@Column(name = "C_VEHICLE_NUM")
 	private String vehicleNum; // 车牌号
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "C_STANDARD_ID")
 	private Standard standard;
 
@@ -52,7 +45,7 @@ public class Courier {
 	@JoinColumn(name = "C_TAKETIME_ID")
 	private TakeTime takeTime;
 
-	@ManyToMany(mappedBy = "couriers")
+	@ManyToMany(mappedBy = "couriers",fetch = FetchType.EAGER)
 	private Set<FixedArea> fixedAreas = new HashSet<FixedArea>();
 
 	public Integer getId() {
