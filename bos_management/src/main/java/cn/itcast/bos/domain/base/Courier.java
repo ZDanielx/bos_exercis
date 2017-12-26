@@ -25,7 +25,7 @@ public class Courier {
 	@Column(name = "C_PDA")
 	private String pda; // PDA号
 	@Column(name = "C_DELTAG")
-	private Character deltag; // 作废标志 1 为标记作废
+	private Character deltag; // 作废标志 0 为标记作废
 	@Column(name = "C_CHECK_PWD")
 	private String checkPwd; // 查台密码
 	@Column(name = "C_TYPE")
