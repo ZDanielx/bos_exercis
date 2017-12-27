@@ -128,7 +128,7 @@ public class CourierAction extends ActionSupport implements ModelDriven<Courier>
         Page<Courier> page = courierService.findPageData(specification, pageable);
         //返回客户端的数据 total和rows
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("total", page.getNumberOfElements());
+        map.put("total", page.getTotalElements());
         map.put("rows", page.getContent());
 
         //将map转换为json数据显示到页面
