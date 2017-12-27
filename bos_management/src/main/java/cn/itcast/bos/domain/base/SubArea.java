@@ -1,11 +1,6 @@
 package cn.itcast.bos.domain.base;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @description:分区
@@ -28,10 +23,10 @@ public class SubArea {
 	@Column(name = "C_ASSIST_KEY_WORDS")
 	private String assistKeyWords; // 辅助关键字
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "C_AREA_ID")
 	private Area area; // 区域
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "C_FIXEDAREA_ID")
 	private FixedArea fixedArea; // 定区
 

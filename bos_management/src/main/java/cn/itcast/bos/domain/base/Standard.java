@@ -1,14 +1,11 @@
 package cn.itcast.bos.domain.base;
 
-import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.*;
 
 /**
  * @description:收派标准
@@ -37,6 +34,16 @@ public class Standard {
 	private String operator; // 操作员
 	@Column(name = "C_OPERATING_COMPANY")
 	private String operatingCompany; // 操作单位
+	@OneToMany(mappedBy = "standard",targetEntity = Courier.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	private Set<Courier> couriers = new HashSet<Courier>();
+
+	public Set<Courier> getCouriers() {
+		return couriers;
+	}
+
+	public void setCouriers(Set<Courier> couriers) {
+		this.couriers = couriers;
+	}
 
 	public Integer getId() {
 		return id;

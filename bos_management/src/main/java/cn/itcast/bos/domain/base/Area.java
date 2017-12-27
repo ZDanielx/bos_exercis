@@ -3,11 +3,7 @@ package cn.itcast.bos.domain.base;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 /**
@@ -33,7 +29,7 @@ public class Area {
 	@Column(name = "C_SHORTCODE")
 	private String shortcode; // 简码
 
-	@OneToMany(mappedBy = "area")
+	@OneToMany(mappedBy = "area",fetch = FetchType.EAGER)
 	private Set<SubArea> subareas = new HashSet<SubArea>();
 
 	public String getId() {

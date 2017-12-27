@@ -41,58 +41,59 @@
         function doEdit() {
             // 获取当前datagrid选中数据
             var rows = $("#grid").datagrid('getSelections');
-            if(rows.length != 1){
+            if (rows.length != 1) {
                 // 没选 或 多选
-                $.messager.alert("提示信息","修改数据时，只能选中一行","warning");
-            }else{
+                $.messager.alert("提示信息", "修改数据时，只能选中一行", "warning");
+            } else {
                 // 只选中一行
                 var row = rows[0];
                 // 进行表单回显操作#courierForm
-                $("#courierForm").form('load',row);
+                $("#courierForm").form('load', row);
+                $('#cc').combobox('setValue', row.standard.id);
                 // 显示窗口
                 $("#addWindow").window('open');
             }
         }
 
         function doDelete() {
-           //获取页面中所有勾选的快递员id
+            //获取页面中所有勾选的快递员id
             var rows = $("#grid").datagrid('getSelections');
-            if(rows.length == 0){
+            if (rows.length == 0) {
                 //没有选中数据
-                $.messager.alert("警告","作废快递员必须选中一条及以上数据","warning");
-            }else {
+                $.messager.alert("警告", "作废快递员必须选中一条及以上数据", "warning");
+            } else {
                 //选中数据
                 //获取选中的所有id,拼接字符串方法
-                var flag =0;
+                var flag = 0;
                 var array = new Array();
-                for(var i=0;i<rows.length;i++){
+                for (var i = 0; i < rows.length; i++) {
                     array.push(rows[i].id);
                 }
                 //生成字符串
                 var ids = array.join(",");
                 //将字符串发送到服务器
-                window.location.href = "../../courier_delBatch.action?flag ="+flag+"&ids=" + ids;
+                window.location.href = "../../courier_delBatch.action?flag=" + flag + "&ids=" + ids;
             }
         }
 
         function doRestore() {
             //获取页面中所有勾选的快递员id
             var rows = $("#grid").datagrid('getSelections');
-            if(rows.length == 0){
+            if (rows.length == 0) {
                 //没有选中数据
-                $.messager.alert("警告","恢复快递员必须选中一条及以上数据","warning");
-            }else {
+                $.messager.alert("警告", "恢复快递员必须选中一条及以上数据", "warning");
+            } else {
                 //选中数据
                 //获取所有选中的id
-                var flag =1;
+                var flag = 1;
                 var array = new Array();
-                for(var i=0;i<rows.length;i++){
+                for (var i = 0; i < rows.length; i++) {
                     array.push(rows[i].id);
                 }
                 //生成字符串
                 var ids = array.join(",");
                 //将字符串发送至服务器
-                window.location.href = "../../courier_delBatch.action?flag ="+flag+"&ids=" + ids;
+                window.location.href = "../../courier_delBatch.action?flag=" + flag + "&ids=" + ids;
             }
         }
 
@@ -185,9 +186,9 @@
                 // value 当前属性对应json数据中值
                 // rowData 当前行数据
                 // rowIndex 第几行
-                if (value == null) {
+                if (value == "1") {
                     return "正常使用"
-                } else if (value == "1") {
+                } else if (value == "0") {
                     return "已作废";
                 }
             }
@@ -276,6 +277,8 @@
             <table class="table-edit" width="80%" align="center">
                 <tr class="title">
                     <td colspan="4">收派员信息</td>
+                    <td colspan="4"><input type="hidden" name="id"/></td>
+
                 </tr>
                 <tr>
                     <td>快递员工号</td>
@@ -315,7 +318,7 @@
                     <td>取派标准</td>
                     <td>
                         <input type="text" name="standard.id" class="easyui-combobox" data-options="required:true,valueField:'id',textField:'name',
-											url:'../../standard_findAll.action'"/>
+											url:'../../standard_findAll.action'" id="cc"/>
                     </td>
                 </tr>
                 <tr>

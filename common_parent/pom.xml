@@ -122,7 +122,12 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-
+		<!--pinyin4j-->
+		<dependency>
+			<groupId>com.belerweb</groupId>
+			<artifactId>pinyin4j</artifactId>
+			<version>2.5.0</version>
+		</dependency>
 		<!-- 数据库连接池 -->
 		<dependency>
 			<groupId>c3p0</groupId>

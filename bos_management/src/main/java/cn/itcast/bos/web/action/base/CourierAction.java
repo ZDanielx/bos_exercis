@@ -44,12 +44,12 @@ public class CourierAction extends ActionSupport implements ModelDriven<Courier>
     private Integer page;
     private Integer rows;
     private String ids;
+    private String flag;
 
     public void setIds(String ids) {
         this.ids = ids;
     }
 
-    private String flag;
     public void setFlag(String flag) {
         this.flag = flag;
     }
@@ -149,7 +149,7 @@ public class CourierAction extends ActionSupport implements ModelDriven<Courier>
         if(deltag=='1'){
             //调用业务层批量恢复
             courierService.Batch(deltag,idArray);
-        }else if (deltag=='1'){
+        }else if (deltag=='0'){
             //调用业务层,批量作废
             courierService.Batch(deltag,idArray);
         }
