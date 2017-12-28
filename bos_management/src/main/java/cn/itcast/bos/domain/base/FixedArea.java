@@ -4,16 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 /**
  * @description:定区
@@ -42,10 +33,10 @@ public class FixedArea {
 	@Column(name = "C_OPERATING_COMPANY")
 	private String operatingCompany; // 操作单位
 
-	@OneToMany(mappedBy = "fixedArea")
+	@OneToMany(mappedBy = "fixedArea",fetch = FetchType.EAGER)
 	private Set<SubArea> subareas = new HashSet<SubArea>(0);
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "T_FIXEDAREA_COURIER", joinColumns = { @JoinColumn(name = "C_FIXED_AREA_ID", referencedColumnName = "C_ID") }, inverseJoinColumns = { @JoinColumn(name = "C_COURIER_ID", referencedColumnName = "C_ID") })
 	private Set<Courier> couriers = new HashSet<Courier>(0);
 

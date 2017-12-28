@@ -1,5 +1,6 @@
 package cn.itcast.bos.domain.base;
 
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -96,6 +97,10 @@ public class Area {
 		this.subareas = subareas;
 	}
 
+	@Transient
+	public String getArea(){
+		return province+"-"+city+"-"+district ;
+	}
 	@Override
 	public String toString() {
 		return "Area [id=" + id + ", province=" + province + ", city=" + city

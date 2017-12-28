@@ -17,11 +17,12 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class AreaServiceImpl implements AreaService{
+public class AreaServiceImpl implements AreaService {
 
     //注入DAO
     @Autowired
     private AreaRepsitory areaRepsitory;
+
     @Override
     public void saveBatch(List<Area> areas) {
         areaRepsitory.save(areas);
@@ -29,6 +30,17 @@ public class AreaServiceImpl implements AreaService{
 
     @Override
     public Page<Area> findPageData(Specification<Area> specification, Pageable pageable) {
-        return areaRepsitory.findAll(specification,pageable);
+        return areaRepsitory.findAll(specification, pageable);
+    }
+
+    @Override
+    public List<Area> findAll() {
+
+        return areaRepsitory.findAll();
+    }
+
+    @Override
+    public void save(Area model) {
+        areaRepsitory.save(model);
     }
 }

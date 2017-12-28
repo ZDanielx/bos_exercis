@@ -1,13 +1,9 @@
 package cn.itcast.bos.service.base;
 
 import cn.itcast.bos.domain.base.Area;
-import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.ParentPackage;
-import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
@@ -29,4 +25,11 @@ public interface AreaService {
      * @return
      */
     public Page<Area> findPageData(Specification<Area> specification, Pageable pageable);
+
+    /**
+     * 查找所有区域的方法
+     */
+    public List<Area> findAll();
+
+    public void save(Area model);
 }

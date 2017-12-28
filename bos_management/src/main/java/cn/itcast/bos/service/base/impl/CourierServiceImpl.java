@@ -42,8 +42,6 @@ public class CourierServiceImpl implements CourierService {
         return courierRepsitory.findAll(specification, pageable);
     }
 
-
-
     /**
      * 批量作废或恢复的方法
      *
