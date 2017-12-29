@@ -41,7 +41,7 @@ public class SubAreaAction extends BaseAction<SubArea> {
      *
      * @return
      */
-    @Action(value = "sub_area_save", results = {@Result(name = "success", location = "./pages/base/standard.html", type = "redirect")})
+    @Action(value = "sub_area_save", results = {@Result(name = "success", location = "./pages/base/sub_area.html", type = "redirect")})
     public String addSubArea() {
         subAreaService.save(model);
         return SUCCESS;
@@ -50,18 +50,19 @@ public class SubAreaAction extends BaseAction<SubArea> {
     /**
      * 查找所有分区的方法
      */
-    @Action(value = "", results = {@Result(name = "success", type = "json")})
+   /* @Action(value = "", results = {@Result(name = "success", type = "json")})
     public String findAllSubArea() {
         List<SubArea> subAreas = subAreaService.findAll();
         ServletActionContext.getContext().getValueStack().push(subAreas);
         return SUCCESS;
-    }
+    }*/
 
     /**
      * 带条件分页的方法
      *
      * @return
      */
+    @Action(value = "subArea_pageQuery",results = {@Result(name = "success",type = "json")})
     public String pageQuery() {
         Pageable pageable = new PageRequest(page - 1, rows);
         Specification<SubArea> specification = new Specification<SubArea>() {
@@ -90,7 +91,6 @@ public class SubAreaAction extends BaseAction<SubArea> {
                 if (model.getFixedArea() != null && StringUtils.isNotBlank(model.getFixedArea().getId())) {
                     Predicate id = cb.like(fixedAreaJoin.get("id").as(String.class),
                             "%" + model.getFixedArea().getId() + "%");
-
                     list.add(id);
                 }
                 //单表查询

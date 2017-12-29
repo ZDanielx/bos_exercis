@@ -154,12 +154,12 @@
             width: 120,
             align: 'center'
         }, {
-            field: 'startnum',
+            field: 'startNum',
             title: '起始号',
             width: 100,
             align: 'center'
         }, {
-            field: 'endnum',
+            field: 'endNum',
             title: '终止号',
             width: 100,
             align: 'center'
@@ -189,7 +189,7 @@
                 pageList: [30, 50, 100],
                 pagination: true,
                 toolbar: toolbar,
-                url: "../../data/sub_area.json",
+                url: "../../subArea_pageQuery.action",
                 idField: 'id',
                 columns: columns,
                 onDblClickRow: doDblClickRow
@@ -293,13 +293,13 @@
                 <tr>
                     <td>起始号</td>
                     <td>
-                        <input type="text" name="startnum" class="easyui-validatebox" required="true"/>
+                        <input type="text" name="startNum" class="easyui-validatebox" required="true"/>
                     </td>
                 </tr>
                 <tr>
                     <td>终止号</td>
                     <td>
-                        <input type="text" name="endnum" class="easyui-validatebox" required="true"/>
+                        <input type="text" name="endNum" class="easyui-validatebox" required="true"/>
                     </td>
                 </tr>
                 <tr>
@@ -335,19 +335,19 @@
                 <tr>
                     <td>省</td>
                     <td>
-                        <input type="text" name="province"  required="true"/>
+                        <input type="text" name="area.province"  required="true"/>
                     </td>
                 </tr>
                 <tr>
                     <td>市</td>
                     <td>
-                        <input type="text" name="city"  required="true"/>
+                        <input type="text" name="area.city"  required="true"/>
                     </td>
                 </tr>
                 <tr>
                     <td>区（县）</td>
                     <td>
-                        <input type="text" name="district"  required="true"/>
+                        <input type="text" name="area.district"  required="true"/>
                     </td>
                 </tr>
                 <tr>
