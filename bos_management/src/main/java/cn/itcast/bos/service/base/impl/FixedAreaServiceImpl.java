@@ -1,7 +1,11 @@
 package cn.itcast.bos.service.base.impl;
 
+import cn.itcast.bos.dao.base.CourierRepsitory;
 import cn.itcast.bos.dao.base.FixedAreaRepsitory;
+import cn.itcast.bos.dao.base.TakeTimeRepsitory;
+import cn.itcast.bos.domain.base.Courier;
 import cn.itcast.bos.domain.base.FixedArea;
+import cn.itcast.bos.domain.base.TakeTime;
 import cn.itcast.bos.service.base.FixedAreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,5 +40,26 @@ public class FixedAreaServiceImpl implements FixedAreaService {
     @Override
     public List<FixedArea> findAll() {
         return fixedAreaRepsitory.findAll();
+    }
+
+    //注入dao层
+    @Autowired
+    private CourierRepsitory courierRepsitory;
+    @Autowired
+    private TakeTimeRepsitory takeTimeRepsitory;
+
+    @Override
+    public void associationCourierToFixedArea(FixedArea model, Integer courierId, Integer takeTimeId) {
+        FixedArea fixedArea = fixedAreaRepsitory.findOne(model.getId());
+
+        Courier courier = courierRepsitory.findOne(courierId);
+
+        TakeTime takeTime = takeTimeRepsitory.findOne(takeTimeId);
+        //将收派标准关联到快递员上
+        courier.setTakeTime(takeTime);
+        //快递员关联到定区
+        fixedArea.getCouriers().add(courier);
+
+        fixedAreaRepsitory.save(fixedArea);
     }
 }

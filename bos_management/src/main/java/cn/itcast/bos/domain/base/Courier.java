@@ -50,6 +50,11 @@ public class Courier {
     @ManyToMany(mappedBy = "couriers", fetch = FetchType.EAGER)
     private Set<FixedArea> fixedAreas = new HashSet<FixedArea>();
 
+    @Transient
+    //防止生成数据库中的列
+    public String getInfo(){
+        return name+"("+company+")";
+    }
     public Integer getId() {
         return id;
     }

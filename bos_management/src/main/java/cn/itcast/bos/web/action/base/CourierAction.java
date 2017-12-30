@@ -62,6 +62,7 @@ public class CourierAction extends ActionSupport implements ModelDriven<Courier>
         this.rows = rows;
     }
 
+    //注入service
     @Autowired
     private CourierService courierService;
 
@@ -146,15 +147,27 @@ public class CourierAction extends ActionSupport implements ModelDriven<Courier>
         //按,分割ids
         String[] idArray = ids.split(",");
         //判断需求是需要作废还是还原
-        if(deltag=='1'){
+        if (deltag == '1') {
             //调用业务层批量恢复
-            courierService.Batch(deltag,idArray);
-        }else if (deltag=='0'){
+            courierService.Batch(deltag, idArray);
+        } else if (deltag == '0') {
             //调用业务层,批量作废
-            courierService.Batch(deltag,idArray);
+            courierService.Batch(deltag, idArray);
         }
-
-
         return SUCCESS;
     }
+
+    /**
+     * 查找未关联定区的快递员
+     * @return
+     */
+    @Action(value = "courier_findnoassociation",results = {@Result(name = "success",type = "json")})
+    public String findnoassociation(){
+        //调用业务层查找未关联的快递员
+        List<Courier> couriers = courierService.findNoAssociation();
+        //将查询结果压入值栈
+        ActionContext.getContext().getValueStack().push(couriers);
+        return SUCCESS;
+    }
+
 }

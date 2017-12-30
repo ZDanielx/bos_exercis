@@ -10,6 +10,13 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.List;
+import java.util.Set;
+
 /**
  * Created by Ricky on 2017/12/25
  */
@@ -56,6 +63,24 @@ public class CourierServiceImpl implements CourierService {
             courierRepsitory.Batch(deltag,id);
         }
 
+    }
+
+    /**
+     * 查找未添加分区的快递员信息
+     * @return
+     */
+    @Override
+    public List<Courier> findNoAssociation() {
+        //封装specification
+        Specification<Courier> courierSpecification = new Specification<Courier>() {
+            @Override
+            public Predicate toPredicate(Root<Courier> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                //查询条件,判定列表size是否为空
+                Predicate fixedAreas = cb.isEmpty(root.get("fixedAreas").as(Set.class));
+                return fixedAreas;
+            }
+        };
+        return courierRepsitory.findAll(courierSpecification);
     }
 
 
