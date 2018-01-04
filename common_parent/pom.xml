@@ -33,7 +33,18 @@
 			<version>${shiro.version}</version>
 		</dependency>
 
+		<!--sms-->
+		<!--<dependency>
+			<groupId>cn.itcast.maven</groupId>
+			<artifactId>bos_sms</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>-->
 		<!-- spring 框架 -->
+		<dependency>
+			<groupId>org.apache.xbean</groupId>
+			<artifactId>xbean-spring</artifactId>
+			<version>3.7</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -155,13 +166,16 @@
 			<artifactId>jedis</artifactId>
 			<version>${jedis.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-redis</artifactId>
 			<version>${springdataredis.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>1.4.1.RELEASE</version>
+		</dependency>
 		<!-- oracle数据库驱动，需要手动安装 -->
 		<dependency>
 			<groupId>com.oracle</groupId>
@@ -250,6 +264,16 @@
 			<groupId>com.colobu</groupId>
 			<artifactId>fastjson-jaxrs-json-provider</artifactId>
 			<version>0.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javamail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.itcast.maven</groupId>
+			<artifactId>crm_domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

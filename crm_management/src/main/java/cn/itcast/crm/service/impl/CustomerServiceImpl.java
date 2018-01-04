@@ -15,38 +15,53 @@ import cn.itcast.crm.service.CustomerService;
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
 
-	// 注入DAO
-	@Autowired
-	private CustomerRepository customerRepository;
+    // 注入DAO
+    @Autowired
+    private CustomerRepository customerRepository;
 
-	@Override
-	public List<Customer> findNoAssociationCustomers() {
-		// fixedAreaId is null
-		return customerRepository.findByFixedAreaIdIsNull();
-	}
+    @Override
+    public List<Customer> findNoAssociationCustomers() {
+        // fixedAreaId is null
+        return customerRepository.findByFixedAreaIdIsNull();
+    }
 
-	@Override
-	public List<Customer> findHasAssociationFixedAreaCustomers(
-			String fixedAreaId) {
-		// fixedAreaId is ?
-		return customerRepository.findByFixedAreaId(fixedAreaId);
-	}
+    @Override
+    public List<Customer> findHasAssociationFixedAreaCustomers(
+            String fixedAreaId) {
+        // fixedAreaId is ?
+        return customerRepository.findByFixedAreaId(fixedAreaId);
+    }
 
-	@Override
-	public void associationCustomersToFixedArea(String customerIdStr,
-			String fixedAreaId) {
-		// 解除关联动作
-		customerRepository.clearFixedAreaId(fixedAreaId);
+    @Override
+    public void associationCustomersToFixedArea(String customerIdStr,
+                                                String fixedAreaId) {
+        // 解除关联动作
+        customerRepository.clearFixedAreaId(fixedAreaId);
 
-		// 切割字符串 1,2,3
-		if (StringUtils.isBlank(customerIdStr)) {
-			return;
-		}
-		String[] customerIdArray = customerIdStr.split(",");
-		for (String idStr : customerIdArray) {
-			Integer id = Integer.parseInt(idStr);
-			customerRepository.updateFixedAreaId(fixedAreaId, id);
-		}
-	}
+        // 切割字符串 1,2,3
+        if (StringUtils.isBlank(customerIdStr)) {
+            return;
+        }
+        String[] customerIdArray = customerIdStr.split(",");
+        for (String idStr : customerIdArray) {
+            Integer id = Integer.parseInt(idStr);
+            customerRepository.updateFixedAreaId(fixedAreaId, id);
+        }
+    }
+
+    @Override
+    public void regist(Customer customer) {
+        customerRepository.save(customer);
+    }
+
+    @Override
+    public Customer findByTelephone(String telephone) {
+        return customerRepository.findByTelephone(telephone);
+    }
+
+    @Override
+    public void undateType(String telephone) {
+        customerRepository.undateType(telephone);
+    }
 
 }
