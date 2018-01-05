@@ -10,10 +10,17 @@ import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Controller;
 
+import javax.jms.JMSException;
+import javax.jms.MapMessage;
+import javax.jms.Message;
+import javax.jms.Session;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -28,6 +35,10 @@ import java.util.concurrent.TimeUnit;
 @ParentPackage("json-default")
 public class CustomerAction extends BaseAction<Customer> {
 
+    @Autowired
+    @Qualifier("jmsQueueTemplate")
+    private JmsTemplate jmsTemplate;
+
     @Action(value = "customer_sendSms")
     public String sendSms() throws UnsupportedEncodingException {
         //手机号已经保存在customer对象中
@@ -37,22 +48,24 @@ public class CustomerAction extends BaseAction<Customer> {
         ServletActionContext.getRequest().getSession().setAttribute(model.getTelephone(), randomCode);
         System.out.println("生成的短信验证码为:" + randomCode);
         //编辑短信内容
-        String msg = "尊敬的用户您好，本次获取的验证码为" + randomCode + ",服务电话：4006184000";
-        //调用Sms发送短信
-        //String result = SmsUtils.sendSmsByHTTP(model.getTelephone(), msg);
-        String result = "000/xxx";
-        if (result.startsWith("000")) {
-            //发送成功
-            return NONE;
-        } else {
-            //发送失败
-            throw new RuntimeException("短信发送失败,信息码" + result);
-        }
+         final String msg = "尊敬的用户您好，本次获取的验证码为" + randomCode + ",服务电话：4006184000";
+        //调用MQ服务发送消息
 
+        jmsTemplate.send("bos_sms", new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                MapMessage mapMessage = session.createMapMessage();
+                mapMessage.setString("telephone", model.getTelephone());
+                mapMessage.setString("msg", msg);
+                return mapMessage;
+            }
+        });
+        return NONE;
     }
 
     //属性驱动
     private String checkcode;
+
     public void setCheckcode(String checkcode) {
         this.checkcode = checkcode;
     }
@@ -74,19 +87,18 @@ public class CustomerAction extends BaseAction<Customer> {
             //调用webservice保存客户信息
             WebClient.create("http://localhost:9001/crm_management/services/customerService/customer").type(MediaType.APPLICATION_JSON).post(model);
             System.out.println("客户注册成功....");
-            //发送一封激活邮件
-            //生成激活码
-            String activecode = RandomStringUtils.randomNumeric(32);
-            //将激活码保存到Redis中并设置24小时过期
-            redisTemplate.opsForValue().set(model.getTelephone(), activecode, 24, TimeUnit.HOURS);
-            // 调用MailUtils发送激活邮件
-            String content = "尊敬的客户您好，请于24小时内，进行邮箱账户的绑定，点击下面地址完成绑定:<br/><a href='"
-                    + MailUtils.activeUrl + "?telephone=" + model.getTelephone()
-                    + "&activecode=" + activecode + "'>速运快递邮箱绑定地址</a>";
-            MailUtils.sendMail("速运快递激活邮件", content, model.getEmail());
+            jmsTemplate.send("bos_mail", new MessageCreator() {
+                @Override
+                public Message createMessage(Session session) throws JMSException {
+                    MapMessage mapMessage = session.createMapMessage();
+                    //在Queue中保存客户的电话和邮箱地址
+                    mapMessage.setString("telephone",model.getTelephone());
+                    mapMessage.setString("email",model.getEmail());
+                    return mapMessage;
+                }
+            });
             return SUCCESS;
         }
-
     }
 
     //属性驱动

@@ -21,7 +21,10 @@
 	
 	<!-- 扫描包 -->
 	<context:component-scan base-package="cn.itcast.bos.mq" />
-	
+
+    <!-- 引入redis配置 -->
+    <import resource="applicationContext-cache.xml"/>
+
 	<!-- ActiveMQ 连接工厂 -->
     <!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供-->
     <!-- 如果连接网络：tcp://ip:61616；未连接网络：tcp://localhost:61616 以及用户名，密码-->
@@ -46,6 +49,7 @@
     	connection-factory="connectionFactory" acknowledge="auto">
         <!-- 默认注册bean名称，应该是类名首字母小写  -->
         <jms:listener destination="bos_sms" ref="smsConsumer"/>
+        <jms:listener destination="bos_mail" ref="emailColligation"/>
     </jms:listener-container>
     
     <!-- 定义Topic监听器 -->

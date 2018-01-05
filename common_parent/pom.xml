@@ -34,11 +34,11 @@
 		</dependency>
 
 		<!--sms-->
-		<!--<dependency>
+		<dependency>
 			<groupId>cn.itcast.maven</groupId>
 			<artifactId>bos_sms</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>-->
+		</dependency>
 		<!-- spring 框架 -->
 		<dependency>
 			<groupId>org.apache.xbean</groupId>
