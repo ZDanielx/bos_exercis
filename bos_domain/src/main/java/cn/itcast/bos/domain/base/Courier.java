@@ -1,11 +1,8 @@
 package cn.itcast.bos.domain.base;
 
-import org.apache.struts2.json.annotations.JSON;
-
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.*;
 
 /**
  * @description:快递员

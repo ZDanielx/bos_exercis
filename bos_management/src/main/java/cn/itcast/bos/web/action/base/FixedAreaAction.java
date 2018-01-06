@@ -1,9 +1,9 @@
 package cn.itcast.bos.web.action.base;
 
-import cn.itcast.bos.domain.base.FixedArea;
 import cn.itcast.bos.service.base.FixedAreaService;
 import cn.itcast.bos.web.action.common.BaseAction;
 import cn.itcast.crm.domain.Customer;
+import cn.itcast.bos.domain.base.FixedArea;
 import com.opensymphony.xwork2.ActionContext;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;

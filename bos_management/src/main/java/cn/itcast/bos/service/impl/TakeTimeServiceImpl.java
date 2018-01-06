@@ -1,8 +1,9 @@
 package cn.itcast.bos.service.impl;
 
 import cn.itcast.bos.dao.base.TakeTimeRepsitory;
-import cn.itcast.bos.domain.base.TakeTime;
+
 import cn.itcast.bos.service.base.TakeTimeService;
+import cn.itcast.bos.domain.base.TakeTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

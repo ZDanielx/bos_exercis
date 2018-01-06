@@ -33,12 +33,6 @@
 			<version>${shiro.version}</version>
 		</dependency>
 
-		<!--sms-->
-		<dependency>
-			<groupId>cn.itcast.maven</groupId>
-			<artifactId>bos_sms</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 		<!-- spring 框架 -->
 		<dependency>
 			<groupId>org.apache.xbean</groupId>
@@ -269,11 +263,6 @@
 			<groupId>javamail</groupId>
 			<artifactId>mail</artifactId>
 			<version>1.3.2</version>
-		</dependency>
-		<dependency>
-			<groupId>cn.itcast.maven</groupId>
-			<artifactId>crm_domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

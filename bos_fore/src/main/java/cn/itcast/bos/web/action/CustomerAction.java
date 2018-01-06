@@ -1,6 +1,5 @@
 package cn.itcast.bos.web.action;
 
-import cn.itcast.bos.utils.MailUtils;
 import cn.itcast.crm.domain.Customer;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
@@ -24,7 +23,6 @@ import javax.jms.Session;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Ricky on 2018/1/3
@@ -48,7 +46,7 @@ public class CustomerAction extends BaseAction<Customer> {
         ServletActionContext.getRequest().getSession().setAttribute(model.getTelephone(), randomCode);
         System.out.println("生成的短信验证码为:" + randomCode);
         //编辑短信内容
-         final String msg = "尊敬的用户您好，本次获取的验证码为" + randomCode + ",服务电话：4006184000";
+        final String msg = "尊敬的用户您好，本次获取的验证码为" + randomCode + ",服务电话：4006184000";
         //调用MQ服务发送消息
 
         jmsTemplate.send("bos_sms", new MessageCreator() {

@@ -1,17 +1,9 @@
 package cn.itcast.bos.domain.base;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * @description:档案类，记录所有的分类信息，在子档中

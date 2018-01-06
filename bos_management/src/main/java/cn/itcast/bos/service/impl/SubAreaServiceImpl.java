@@ -1,8 +1,9 @@
 package cn.itcast.bos.service.impl;
 
 import cn.itcast.bos.dao.base.SubAreaRepsitory;
-import cn.itcast.bos.domain.base.SubArea;
+
 import cn.itcast.bos.service.base.SubAreaService;
+import cn.itcast.bos.domain.base.SubArea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

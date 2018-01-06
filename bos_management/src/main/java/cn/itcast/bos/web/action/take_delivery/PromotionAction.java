@@ -1,8 +1,9 @@
 package cn.itcast.bos.web.action.take_delivery;
 
-import cn.itcast.bos.domain.take_delivery.Promotion;
+
 import cn.itcast.bos.service.base.PromotionService;
 import cn.itcast.bos.web.action.common.BaseAction;
+import cn.itcast.bos.domain.take_delivery.Promotion;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
@@ -11,7 +12,11 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -66,4 +71,19 @@ public class PromotionAction extends BaseAction<Promotion> {
         return SUCCESS;
     }
 
+    /**
+     * 宣传任务的后台分页功能
+     *
+     * @return
+     */
+    @Action(value = "promotion_pageQuery",results = {@Result(name = "success",type = "json")})
+    public String pageQuery() {
+        //接收前台传送过来的 page 和rows
+        Pageable pageable = new PageRequest(page - 1, rows);
+        //调用业务层进行分页查找
+        Page<Promotion> promotions = promotionService.findPageData(pageable);
+        //将查询结果压入值栈
+        pushPageDataToValueStack(promotions);
+        return SUCCESS;
+    }
 }

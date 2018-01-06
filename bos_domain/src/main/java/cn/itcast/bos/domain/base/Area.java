@@ -1,10 +1,9 @@
 package cn.itcast.bos.domain.base;
 
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.*;
 
 
 /**

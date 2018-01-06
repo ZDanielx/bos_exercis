@@ -1,7 +1,8 @@
 package cn.itcast.bos.web.action.base;
 
-import cn.itcast.bos.domain.base.Standard;
+
 import cn.itcast.bos.service.base.StandardService;
+import cn.itcast.bos.domain.base.Standard;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;

@@ -1,8 +1,8 @@
 package cn.itcast.bos.web.action.base;
 
+import cn.itcast.bos.service.base.CourierService;
 import cn.itcast.bos.domain.base.Courier;
 import cn.itcast.bos.domain.base.Standard;
-import cn.itcast.bos.service.base.CourierService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;

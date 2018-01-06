@@ -1,9 +1,9 @@
 package cn.itcast.bos.web.action.base;
 
-import cn.itcast.bos.domain.base.Area;
 import cn.itcast.bos.service.base.AreaService;
 import cn.itcast.bos.utils.PinYin4jUtils;
 import cn.itcast.bos.web.action.common.BaseAction;
+import cn.itcast.bos.domain.base.Area;
 import com.opensymphony.xwork2.ActionContext;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -191,7 +191,7 @@ public class AreaAction extends BaseAction<Area> {
      *
      * @return
      */
-    @Action(value = "findAll_area",results = {@Result(name = "success",type = "json")})
+    @Action(value = "findAll_area", results = {@Result(name = "success", type = "json")})
     public String findAllArea() {
         List<Area> areas = areaService.findAll();
         ServletActionContext.getContext().getValueStack().push(areas);

@@ -1,10 +1,11 @@
 package cn.itcast.bos.web.action.base;
 
+
+import cn.itcast.bos.service.base.SubAreaService;
+import cn.itcast.bos.web.action.common.BaseAction;
 import cn.itcast.bos.domain.base.Area;
 import cn.itcast.bos.domain.base.FixedArea;
 import cn.itcast.bos.domain.base.SubArea;
-import cn.itcast.bos.service.base.SubAreaService;
-import cn.itcast.bos.web.action.common.BaseAction;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
