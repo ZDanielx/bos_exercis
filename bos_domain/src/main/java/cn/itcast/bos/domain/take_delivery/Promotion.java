@@ -1,6 +1,6 @@
 package cn.itcast.bos.domain.take_delivery;
 
-import cn.itcast.bos.domain.contant.Contants;
+import cn.itcast.bos.domain.contant.Constants;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -57,10 +57,10 @@ public class Promotion implements Serializable {
 	}
 
 	public String getTitleImg() {
-		if (titleImg.startsWith(Contants.BOS_MANAGEMENT_URL)) {
+		if (titleImg.startsWith(Constants.BOS_MANAGEMENT_URL)) {
 			return titleImg;
 		}
-		return Contants.BOS_MANAGEMENT_URL + titleImg;
+		return Constants.BOS_MANAGEMENT_URL + titleImg;
 	}
 
 	public void setTitleImg(String titleImg) {
@@ -124,7 +124,12 @@ public class Promotion implements Serializable {
 	}
 
 	public String getDescription() {
-		return description;
+		if (description.contains("<img src=\"" + Constants.BOS_MANAGEMENT_URL
+				+ "/")) {
+			return description;
+		}
+		return description.replace("<img src=\"/", "<img src=\""
+				+ Constants.BOS_MANAGEMENT_URL + "/");
 	}
 
 	public void setDescription(String description) {

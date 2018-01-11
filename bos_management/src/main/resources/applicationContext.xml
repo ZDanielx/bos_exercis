@@ -21,6 +21,10 @@
     <context:property-placeholder location="classpath:config.properties"/>
     <!-- 引入WebService配置 -->
     <import resource="applicationContext-webService.xml"/>
+    <!-- 引入MQ配置 -->
+    <import resource="applicationContext-mq.xml"/>
+    <!-- 引入quartz配置 -->
+    <import resource="applicationContext-quartz.xml"/>
     <!--数据库连接池-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="${jdbc.driver}"/>

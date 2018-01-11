@@ -1,5 +1,6 @@
 package cn.itcast.bos.web.action.base;
 
+import cn.itcast.bos.domain.contant.Constants;
 import cn.itcast.bos.service.base.FixedAreaService;
 import cn.itcast.bos.web.action.common.BaseAction;
 import cn.itcast.crm.domain.Customer;
@@ -107,7 +108,7 @@ public class FixedAreaAction extends BaseAction<FixedArea> {
     public String findNoAssociationCustomers() {
         //使用webClient调用webService接口
         Collection<? extends Customer> collection = WebClient
-                .create("http://localhost:9001/crm_management/services/customerService/noassociationcustomers")
+                .create(Constants.CRM_MANAGEMENT_URL+"/services/customerService/noassociationcustomers")
                 .accept(MediaType.APPLICATION_JSON)
                 .getCollection(Customer.class);
         ActionContext.getContext().getValueStack().push(collection);
@@ -123,7 +124,7 @@ public class FixedAreaAction extends BaseAction<FixedArea> {
     public String findHasAssociationFixedAreaCustomers() {
         //使用webClient调用webService
         Collection<? extends Customer> collection = WebClient
-                .create("http://localhost:9001/crm_management/services/customerService/associationfixedareacustomers/"
+                .create(Constants.CRM_MANAGEMENT_URL+"/services/customerService/associationfixedareacustomers/"
                         + model.getId()).accept(MediaType.APPLICATION_JSON)
                 .type(MediaType.APPLICATION_JSON).getCollection(Customer.class);
         ActionContext.getContext().getValueStack().push(collection);
@@ -144,7 +145,7 @@ public class FixedAreaAction extends BaseAction<FixedArea> {
     @Action(value = "fixedArea_associationCustomersToFixedArea",results = {@Result(name = "success",type = "redirect", location = "./pages/base/fixed_area.html")})
     public String associationCustomersToFixedArea() {
         String customerIdStr = StringUtils.join(customerIds, ",");
-        WebClient.create("http://localhost:9001/crm_management/services/customerService"
+        WebClient.create(Constants.CRM_MANAGEMENT_URL+"/services/customerService"
                 + "/associationcustomerstofixedarea?customerIdStr="
                 + customerIdStr + "&fixedAreaId=" + model.getId()).put(
                 null);

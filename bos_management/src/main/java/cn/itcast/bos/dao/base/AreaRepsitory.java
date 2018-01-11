@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * Created by Ricky on 2017/12/27
  */
 public interface AreaRepsitory extends JpaRepository<Area,String>,JpaSpecificationExecutor<Area>{
+    Area findByProvinceAndCityAndDistrict(String province, String city, String district);
 }

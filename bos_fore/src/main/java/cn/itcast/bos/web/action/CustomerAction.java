@@ -1,5 +1,6 @@
 package cn.itcast.bos.web.action;
 
+import cn.itcast.bos.domain.contant.Constants;
 import cn.itcast.crm.domain.Customer;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
@@ -83,15 +84,15 @@ public class CustomerAction extends BaseAction<Customer> {
             return INPUT;
         } else {
             //调用webservice保存客户信息
-            WebClient.create("http://localhost:9001/crm_management/services/customerService/customer").type(MediaType.APPLICATION_JSON).post(model);
+            WebClient.create(Constants.CRM_MANAGEMENT_URL + "/services/customerService/customer").type(MediaType.APPLICATION_JSON).post(model);
             System.out.println("客户注册成功....");
             jmsTemplate.send("bos_mail", new MessageCreator() {
                 @Override
                 public Message createMessage(Session session) throws JMSException {
                     MapMessage mapMessage = session.createMapMessage();
                     //在Queue中保存客户的电话和邮箱地址
-                    mapMessage.setString("telephone",model.getTelephone());
-                    mapMessage.setString("email",model.getEmail());
+                    mapMessage.setString("telephone", model.getTelephone());
+                    mapMessage.setString("email", model.getEmail());
                     return mapMessage;
                 }
             });
@@ -124,15 +125,14 @@ public class CustomerAction extends BaseAction<Customer> {
             // 防止重复绑定
             // 调用CRM webService 查询客户信息，判断是否已经绑定
             Customer customer = WebClient
-                    .create("http://localhost:9001/crm_management/services"
+                    .create(Constants.CRM_MANAGEMENT_URL + "/services"
                             + "/customerService/customer/telephone/"
                             + model.getTelephone())
                     .accept(MediaType.APPLICATION_JSON).get(Customer.class);
             if (customer.getType() == null || customer.getType() != 1) {
-                WebClient.create(
-                        "http://localhost:9001/crm_management/services"
-                                + "/customerService/customer/updatetype/"
-                                + model.getTelephone()).get();
+                WebClient.create(Constants.CRM_MANAGEMENT_URL + "/services"
+                        + "/customerService/customer/updatetype/"
+                        + model.getTelephone()).get();
                 ServletActionContext.getResponse().getWriter().print("邮箱绑定成功!");
             } else {
                 //已经绑定
@@ -143,4 +143,22 @@ public class CustomerAction extends BaseAction<Customer> {
         redisTemplate.delete(model.getTelephone());
         return NONE;
     }
+
+    @Action(value = "customer_login", results = {@Result(name = "login", location = "login.html", type = "redirect"),
+            @Result(name = "success", location = "index.html#/myhome", type = "redirect")})
+    public String login() {
+        Customer customer = WebClient.create(Constants.CRM_MANAGEMENT_URL + "/services/customerService/customer/login?telephone="
+                + model.getTelephone() + "&password="
+                + model.getPassword()).accept(MediaType.APPLICATION_JSON).get(Customer.class);
+        if (customer != null) {
+            //登陆成功
+            ServletActionContext.getRequest().getSession().setAttribute("customer",customer);
+            return SUCCESS;
+        } else {
+            //登陆失败
+            return LOGIN;
+        }
+
+    }
+
 }

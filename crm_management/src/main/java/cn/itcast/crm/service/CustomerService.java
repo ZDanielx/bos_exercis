@@ -1,10 +1,12 @@
 package cn.itcast.crm.service;
 
+import java.awt.geom.Area;
 import java.util.List;
 
 import javax.ws.rs.*;
 
 import cn.itcast.crm.domain.Customer;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  * 客户操作
@@ -56,4 +58,18 @@ public interface CustomerService {
 	@Path("/customer/updatetype/{telephone}")
 	@GET
 	public void undateType(@PathParam("telephone") String telephone);
+
+	/**
+	 * 验证客户登录的方法
+	 * @return
+	 */
+	@Path("/customer/login")
+	@GET
+	@Consumes({"application/xml","application/json"})
+	public Customer login(@QueryParam("telephone") String telephone,@QueryParam("password") String password);
+
+	@Path("/customer/findFixedAreaIdByAddress")
+	@GET
+	@Consumes({"application/xml","application/json"})
+	public String findFixedAreaIdByAddress(@QueryParam("address") String address);
 }

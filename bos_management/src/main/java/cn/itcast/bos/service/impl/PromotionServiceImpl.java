@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 
 /**
  * Created by Ricky on 2018/1/5
@@ -43,6 +45,16 @@ public class PromotionServiceImpl implements PromotionService {
         pageBean.setPageData(pageData.getContent());
         pageBean.setTotalCount(pageData.getTotalElements());
         return pageBean;
+    }
+
+    @Override
+    public Promotion findById(Integer id) {
+        return promotionRepsitory.findOne(id);
+    }
+
+    @Override
+    public void updateStatus(Date date) {
+        promotionRepsitory.updateStatus(date);
     }
 
 
