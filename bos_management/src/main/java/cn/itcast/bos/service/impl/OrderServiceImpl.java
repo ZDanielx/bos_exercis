@@ -8,14 +8,12 @@ import cn.itcast.bos.domain.base.Area;
 import cn.itcast.bos.domain.base.Courier;
 import cn.itcast.bos.domain.base.FixedArea;
 import cn.itcast.bos.domain.base.SubArea;
-import cn.itcast.bos.domain.contant.Constants;
+import cn.itcast.bos.constant.Constants;
 import cn.itcast.bos.domain.take_delivery.Order;
 import cn.itcast.bos.domain.take_delivery.WorkBill;
 import cn.itcast.bos.service.base.OrderService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.core.JmsTemplate;
@@ -127,6 +125,16 @@ public class OrderServiceImpl implements OrderService {
         //进行人工分单
         order.setOrderType("2");
         orderRepsitory.save(order);
+    }
+
+    /**
+     * 通过findByOrderNum查找order的方法
+     * @param orderNum
+     * @return
+     */
+    @Override
+    public Order findByOrderNum(String orderNum) {
+        return orderRepsitory.findByOrderNum(orderNum);
     }
 
     /**

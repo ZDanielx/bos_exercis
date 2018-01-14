@@ -1,6 +1,6 @@
 package cn.itcast.bos.domain.take_delivery;
 
-import cn.itcast.bos.domain.contant.Constants;
+import cn.itcast.bos.constant.Constants;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;

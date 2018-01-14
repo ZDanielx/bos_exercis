@@ -25,6 +25,8 @@
     <import resource="applicationContext-mq.xml"/>
     <!-- 引入quartz配置 -->
     <import resource="applicationContext-quartz.xml"/>
+    <!-- 引入elasticsearch配置 -->
+    <import resource="applicationContext-elasticsearch.xml"/>
     <!--数据库连接池-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="${jdbc.driver}"/>

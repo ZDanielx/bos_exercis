@@ -20,4 +20,10 @@ public interface OrderService {
     @Consumes({"application/xml","application/json"})
     public void addOrder(Order order);
 
+    /**
+     * 根据findByOrderNum查询order的方法
+     * @param orderNum
+     * @return
+     */
+    Order findByOrderNum(String orderNum);
 }

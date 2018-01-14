@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 /**
  * Created by Ricky on 2018/1/11
  */
-public interface OrderRepsitory extends JpaSpecificationExecutor<Order>,JpaRepository<Order,Integer>{
+public interface OrderRepsitory extends JpaSpecificationExecutor<Order>, JpaRepository<Order, Integer> {
+    Order findByOrderNum(String orderNum);
 }

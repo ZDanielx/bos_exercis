@@ -1,6 +1,6 @@
 package cn.itcast.bos.web.action;
 
-import cn.itcast.bos.domain.contant.Constants;
+import cn.itcast.bos.constant.Constants;
 import cn.itcast.crm.domain.Customer;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;

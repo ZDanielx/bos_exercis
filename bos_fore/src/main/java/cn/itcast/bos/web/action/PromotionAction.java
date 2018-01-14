@@ -1,6 +1,6 @@
 package cn.itcast.bos.web.action;
 
-import cn.itcast.bos.domain.contant.Constants;
+import cn.itcast.bos.constant.Constants;
 import cn.itcast.bos.domain.page.PageBean;
 import cn.itcast.bos.domain.take_delivery.Promotion;
 import com.opensymphony.xwork2.ActionContext;

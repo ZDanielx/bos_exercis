@@ -15,12 +15,27 @@
         <!--60000毫秒后重复执行-->
         <property name="repeatInterval" value="60000"/>
     </bean>
+
+    <!--job2-->
+    <bean id="wayBillJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="cn.itcast.bos.quartz.WayBillJob"/>
+    </bean>
+    <!--trigger-->
+    <bean id="simpleTrigger2" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="jobDetail" ref="wayBillJob"/>
+        <!--0秒后第一次执行-->
+        <property name="startDelay" value="0"/>
+        <!--60000毫秒后重复执行-->
+        <property name="repeatInterval" value="30000"/>
+    </bean>
+
     <!--scheduler-->
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="jobFactory" ref="jobFactory"/>
         <property name="triggers">
             <list>
                 <ref bean="simpleTrigger"/>
+                <ref bean="simpleTrigger2"/>
             </list>
         </property>
     </bean>

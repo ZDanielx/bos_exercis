@@ -1,7 +1,7 @@
 package cn.itcast.bos.web.action;
 
 import cn.itcast.bos.domain.base.Area;
-import cn.itcast.bos.domain.contant.Constants;
+import cn.itcast.bos.constant.Constants;
 import cn.itcast.bos.domain.take_delivery.Order;
 import cn.itcast.crm.domain.Customer;
 import org.apache.cxf.jaxrs.client.WebClient;

@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import cn.itcast.bos.domain.base.Area;
 import cn.itcast.bos.domain.base.Courier;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.struts2.json.annotations.JSON;
 
 /**
  * @description:订单实体类
@@ -243,7 +245,7 @@ public class Order {
 	public void setOrderTime(Date orderTime) {
 		this.orderTime = orderTime;
 	}
-
+	@JSON(serialize = false)
 	public WayBill getWayBill() {
 		return wayBill;
 	}
