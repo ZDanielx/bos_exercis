@@ -24,7 +24,6 @@ public class WayBillJob implements Job{
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         List<WayBill> wayBills = wayBillService.findAll();
-        System.out.println("石敏是傻逼");
         for (WayBill wayBill : wayBills) {
          /*   Order order = wayBill.getOrder();
             order = null;
