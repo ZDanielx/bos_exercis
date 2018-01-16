@@ -19,6 +19,8 @@
 
     <!-- 加载properties文件 -->
     <context:property-placeholder location="classpath:config.properties"/>
+    <!-- 引入Shiro配置 -->
+    <import resource="applicationContext-shiro.xml"/>
     <!-- 引入WebService配置 -->
     <import resource="applicationContext-webService.xml"/>
     <!-- 引入MQ配置 -->
