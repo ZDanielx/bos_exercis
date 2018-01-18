@@ -3,15 +3,7 @@ package cn.itcast.bos.domain.system;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @description:菜单
@@ -19,91 +11,101 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "T_MENU")
 public class Menu {
-	@Id
-	@GeneratedValue
-	@Column(name = "C_ID")
-	private int id;
-	@Column(name = "C_NAME")
-	private String name; // 菜单名称
-	@Column(name = "C_PAGE")
-	private String page; // 访问路径
-	@Column(name = "C_PRIORITY")
-	private Integer priority; // 优先级
-	@Column(name = "C_DESCRIPTION")
-	private String description; // 描述
+    @Id
+    @GeneratedValue
+    @Column(name = "C_ID")
+    private int id;
+    @Column(name = "C_NAME")
+    private String name; // 菜单名称
+    @Column(name = "C_PAGE")
+    private String page; // 访问路径
+    @Column(name = "C_PRIORITY")
+    private Integer priority; // 优先级
+    @Column(name = "C_DESCRIPTION")
+    private String description; // 描述
 
-	@ManyToMany(mappedBy = "menus")
-	private Set<Role> roles = new HashSet<Role>(0);
+    @ManyToMany(mappedBy = "menus", fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<Role>(0);
 
-	@OneToMany(mappedBy = "parentMenu")
-	private Set<Menu> childrenMenus = new HashSet<Menu>();
+    @OneToMany(mappedBy = "parentMenu", fetch = FetchType.EAGER)
+    private Set<Menu> childrenMenus = new HashSet<Menu>();
 
-	@ManyToOne
-	@JoinColumn(name = "C_PID")
-	private Menu parentMenu;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "C_PID")
+    private Menu parentMenu;
 
-	public int getId() {
-		return id;
-	}
+    @Transient//在数据表中不生成数据列
+    public int getpId() {
+        if (parentMenu == null) {
+            return 0;
+        } else {
+            return parentMenu.getId();
+        }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    }
 
-	public String getName() {
-		return name;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getPage() {
-		return page;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setPage(String page) {
-		this.page = page;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Integer getPriority() {
-		return priority;
-	}
+    public String getPage() {
+        return page;
+    }
 
-	public void setPriority(Integer priority) {
-		this.priority = priority;
-	}
+    public void setPage(String page) {
+        this.page = page;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public Integer getPriority() {
+        return priority;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
 
-	public Set<Role> getRoles() {
-		return roles;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public Set<Menu> getChildrenMenus() {
-		return childrenMenus;
-	}
+    public Set<Role> getRoles() {
+        return roles;
+    }
 
-	public void setChildrenMenus(Set<Menu> childrenMenus) {
-		this.childrenMenus = childrenMenus;
-	}
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
-	public Menu getParentMenu() {
-		return parentMenu;
-	}
+    public Set<Menu> getChildrenMenus() {
+        return childrenMenus;
+    }
 
-	public void setParentMenu(Menu parentMenu) {
-		this.parentMenu = parentMenu;
-	}
+    public void setChildrenMenus(Set<Menu> childrenMenus) {
+        this.childrenMenus = childrenMenus;
+    }
+
+    public Menu getParentMenu() {
+        return parentMenu;
+    }
+
+    public void setParentMenu(Menu parentMenu) {
+        this.parentMenu = parentMenu;
+    }
 
 }

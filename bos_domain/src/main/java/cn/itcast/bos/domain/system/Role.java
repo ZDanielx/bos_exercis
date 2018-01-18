@@ -3,14 +3,7 @@ package cn.itcast.bos.domain.system;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @description:角色
@@ -29,16 +22,16 @@ public class Role {
 	@Column(name = "C_DESCRIPTION")
 	private String description; // 描述
 
-	@ManyToMany(mappedBy = "roles")
+	@ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER)
 	private Set<User> users = new HashSet<User>(0);
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "T_ROLE_PERMISSION", joinColumns = {
 			@JoinColumn(name = "C_ROLE_ID", referencedColumnName = "C_ID") }, inverseJoinColumns = {
 					@JoinColumn(name = "C_PERMISSION_ID", referencedColumnName = "C_ID") })
 	private Set<Permission> permissions = new HashSet<Permission>(0);
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "T_ROLE_MENU", joinColumns = {
 			@JoinColumn(name = "C_ROLE_ID", referencedColumnName = "C_ID") }, inverseJoinColumns = {
 					@JoinColumn(name = "C_MENU_ID", referencedColumnName = "C_ID") })

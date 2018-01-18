@@ -3,12 +3,7 @@ package cn.itcast.bos.domain.system;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @description:权限名称
@@ -28,7 +23,7 @@ public class Permission {
 	@Column(name = "C_DESCRIPTION")
 	private String description; // 描述
 
-	@ManyToMany(mappedBy = "permissions")
+	@ManyToMany(mappedBy = "permissions",fetch = FetchType.EAGER)
 	private Set<Role> roles = new HashSet<Role>(0);
 
 	public int getId() {

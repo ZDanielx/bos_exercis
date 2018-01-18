@@ -22,19 +22,21 @@ import org.springframework.stereotype.Controller;
 @ParentPackage("json-default")
 public class UserAction extends BaseAction<User> {
 
+    /**
+     * 用户登录验证的方法
+     * @return
+     */
     @Action(value = "user_login", results = {@Result(name = "success", type = "redirect", location = "index.html"),
             @Result(name = "login", type = "redirect", location = "login.html")})
     public String login() {
         //用户名密码 都保存在model中
         //基于shiro实现登录
         Subject subject = SecurityUtils.getSubject();
-
         //用户名和密码信息
         AuthenticationToken token = new UsernamePasswordToken(model.getUsername(),model.getPassword());
         try {
             //登录成功
             //将用户信息保存到session中
-
             subject.login(token);
             return SUCCESS;
         }catch (Exception e){
@@ -43,5 +45,17 @@ public class UserAction extends BaseAction<User> {
             return LOGIN;
         }
 
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Action(value = "user_logout",results = {@Result(name = "success",type = "redirect", location = "login.html")})
+    public String logout(){
+        //基于shiro完成退出
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return SUCCESS;
     }
 }

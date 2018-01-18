@@ -3,6 +3,7 @@ package cn.itcast.bos.service.impl;
 import cn.itcast.bos.dao.base.CourierRepsitory;
 import cn.itcast.bos.service.base.CourierService;
 import cn.itcast.bos.domain.base.Courier;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +34,7 @@ public class CourierServiceImpl implements CourierService {
      * @param courier
      */
     @Override
+    @RequiresPermissions("courier:add")
     public void save(Courier courier) {
         courierRepsitory.save(courier);
     }

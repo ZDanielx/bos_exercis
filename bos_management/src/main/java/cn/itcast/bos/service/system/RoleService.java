@@ -16,4 +16,17 @@ public interface RoleService {
      * @return
      */
     List<Role> findByUser(User user);
+
+    /**
+     * 查找所有角色的方法
+     * @return
+     */
+    List<Role> findAll();
+
+    /**
+     * 添加角色的方法
+     * @param model
+     */
+
+    void save(Role model, String[] permissionIds, String menuIds);
 }

@@ -15,22 +15,34 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class PermissionServiceImpl implements PermissionService{
+public class PermissionServiceImpl implements PermissionService {
 
     @Autowired
     private PermissionRepsitory permissionRepsitory;
 
     /**
      * 根据用户查询权限
+     *
      * @param user
      * @return
      */
     @Override
     public List<Permission> findByUser(User user) {
-        if (user.getUsername().equals("admin")){
+        if (user.getUsername().equals("admin")) {
             return permissionRepsitory.findAll();
-        }else {
+        } else {
             return permissionRepsitory.findByUser(user.getId());
         }
+    }
+
+    @Override
+    public List<Permission> findAll() {
+
+        return permissionRepsitory.findAll();
+    }
+
+    @Override
+    public void save(Permission model) {
+        permissionRepsitory.save(model);
     }
 }

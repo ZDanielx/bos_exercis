@@ -14,4 +14,5 @@ public interface PermissionRepsitory extends JpaRepository<Permission,Integer>,J
 
     @Query("from Permission p inner join fetch p.roles r inner join fetch r.users u where u.id =?")
     List<Permission> findByUser(Integer id);
+
 }

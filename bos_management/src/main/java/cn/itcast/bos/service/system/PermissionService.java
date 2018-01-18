@@ -15,4 +15,15 @@ public interface PermissionService {
      * @return
      */
     List<Permission> findByUser(User user);
+
+    /**
+     * 查询所有权限信息
+     */
+    List<Permission> findAll();
+
+    /**
+     * 保存添加权限的方法
+     * @param model
+     */
+    void save(Permission model);
 }

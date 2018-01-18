@@ -26,7 +26,7 @@
         <!--0秒后第一次执行-->
         <property name="startDelay" value="0"/>
         <!--60000毫秒后重复执行-->
-        <property name="repeatInterval" value="30000"/>
+        <property name="repeatInterval" value="3000000"/>
     </bean>
 
     <!--scheduler-->
