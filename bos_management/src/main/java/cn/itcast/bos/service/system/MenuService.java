@@ -1,6 +1,7 @@
 package cn.itcast.bos.service.system;
 
 import cn.itcast.bos.domain.system.Menu;
+import cn.itcast.bos.domain.system.User;
 
 import java.util.List;
 
@@ -19,4 +20,11 @@ public interface MenuService {
      * @param model
      */
     void save(Menu model);
+
+    /**
+     * 通过用户查询菜单列表的方法
+     * @param user
+     * @return
+     */
+    List<Menu> findByUser(User user);
 }

@@ -90,7 +90,7 @@ public class FixedAreaAction extends BaseAction<FixedArea> {
     /**
      * 查找所有分区的方法
      *
-     * @return
+     * @return List<FixedArea>
      */
     @Action(value = "findAll_fixed", results = {@Result(name = "success", type = "json")})
     public String findAllFixed() {

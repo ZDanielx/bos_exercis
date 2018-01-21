@@ -17,12 +17,12 @@
 		<script src="./js/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			$(function() {
-				/** 
-				   Ztree菜单通用配置 
+				/**
+				   Ztree菜单通用配置
 				*/
 				var setting = {
 					data : {
-						simpleData : { // 简单数据 
+						simpleData : { // 简单数据
 							enable : true
 						}
 					},
@@ -30,18 +30,18 @@
 						onClick : onClick
 					}
 				};
-				
+
 				// 基本功能菜单加载
-				$.post("./data/menu.json",function(data){
+				$.post("./menu_showMenu.action",function(data){
 					$.fn.zTree.init($("#treeMenu"), setting, data);
 				},"json");
-				
-				
+
+
 				// 系统管理菜单加载
 				$.post("./data/admin.json",function(data){
 					$.fn.zTree.init($("#adminMenu"), setting, data);
 				},"json");
-				
+
 				// 页面加载后 右下角 弹出窗口
 				window.setTimeout(function(){
 					$.messager.show({
@@ -50,32 +50,32 @@
 						timeout:5000
 					});
 				},3000);
-				
+
 				$("#btnCancel").click(function(){
 					$('#editPwdWindow').window('close');
 				});
-				
+
 				$("#btnEp").click(function(){
 					alert("修改密码");
 				});
-				
-				// 设置全局变量 保存当前正在右键的tabs 标题 
+
+				// 设置全局变量 保存当前正在右键的tabs 标题
 				var currentRightTitle  ;
-				
-				// 为选项卡，添加右键菜单 
+
+				// 为选项卡，添加右键菜单
 				$('#tabs').tabs({
 					onContextMenu : function(e,title,index){
-						currentRightTitle = title ; 
-						$('#mm').menu('show', { 
+						currentRightTitle = title ;
+						$('#mm').menu('show', {
 							left: e.pageX,
-							top: e.pageY 
+							top: e.pageY
 						});
-						e.preventDefault(); // 禁用原来的右键效果 
+						e.preventDefault(); // 禁用原来的右键效果
 					}
 				});
-				
-				$('#mm').menu({ 
-					onClick:function(item){ 
+
+				$('#mm').menu({
+					onClick:function(item){
 						if(item.name==='Close'){
 							$('#tabs').tabs('close',currentRightTitle);
 						}else if(item.name === 'CloseOthers'){
@@ -93,10 +93,10 @@
 								}
 							});
 						}
-					} 
-				}); 
+					}
+				});
 			});
-			
+
 			function onClick(event, treeId, treeNode, clickFlag) {
 				// 判断树菜单节点是否含有 page属性
 				if (treeNode.page!=undefined && treeNode.page!= "") {
@@ -108,23 +108,23 @@
 								+ '<iframe src="'
 								+ treeNode.page
 								+ '" scrolling="auto" style="width:100%;height:100%;border:0;" ></iframe></div>';
-		
+
 						$('#tabs').tabs('add', {
 							title : treeNode.name,
 							content : content,
 							closable : true,
-							tools:[{ 
+							tools:[{
 								iconCls:'icon-reload', // 刷新按钮
 								handler : function(){
 									var tab = $('#tabs').tabs('getTab',treeNode.name);
 									$("iframe[src='"+treeNode.page+"']").get(0).contentWindow.location.reload(true);
 								}
-							}] 
+							}]
 						});
 					}
 				}
 			}
-		
+
 			/*******顶部特效 *******/
 			/**
 			 * 更换EasyUI主题的方法

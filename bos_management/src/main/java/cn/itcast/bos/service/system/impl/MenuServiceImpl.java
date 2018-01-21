@@ -2,6 +2,7 @@ package cn.itcast.bos.service.system.impl;
 
 import cn.itcast.bos.dao.system.MenuRepsitory;
 import cn.itcast.bos.domain.system.Menu;
+import cn.itcast.bos.domain.system.User;
 import cn.itcast.bos.service.system.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,15 @@ public class MenuServiceImpl implements MenuService {
 
         //调用DAO进行保存
         menuRepsitory.save(model);
+    }
+
+    @Override
+    public List<Menu> findByUser(User user) {
+        //如果为admin则返回所有菜单
+        if (user.getUsername().equals("admin")){
+            return menuRepsitory.findAll();
+        }else {
+            return menuRepsitory.findByUser(user.getId());
+        }
     }
 }
